@@ -1,0 +1,42 @@
+plugins {
+    id 'groovy'
+    id 'io.spring.dependency-management' version '1.1.7'
+    id 'java-library'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.spockframework:spock-bom:2.4-groovy-4.0'
+        mavenBom 'org.springframework.boot:spring-boot-dependencies:3.5.9'
+    }
+}
+
+dependencies {
+    api 'com.lmax:disruptor:4.0.0'
+
+    implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation 'org.spockframework:spock-spring'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    modules {
+        module('org.springframework.boot:spring-boot-starter-logging') {
+            replacedBy('org.springframework.boot:spring-boot-starter-log4j2', 'Use Log4j2 instead of Logback')
+        }
+    }
+}
+
+repositories {
+    mavenLocal()
+    gradlePluginPortal()
+    mavenCentral()
+}
+
+test {
+    environment('LOG_HOME', "$workingDir/build/tmp/test-log_home")
+
+    useJUnitPlatform()
+}

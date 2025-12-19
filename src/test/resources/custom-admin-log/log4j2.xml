@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" name="Http adminlog" xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="
+                   https://logging.apache.org/xml/ns
+                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+    <Appenders>
+        <Console name="adminConsole" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="CUSTOM_ADMIN_LOG: %m"/>
+        </Console>
+
+        <RollingRandomAccessFile name="adminFile"
+                                 filePattern="${env:LOG_HOME}/admin-%date{yyyy-MM-dd}-%index.log">
+            <PatternLayout pattern="CUSTOM_ADMIN_LOG: %m%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <AsyncLogger additivity="false" name="adminLog" level="TRACE">
+            <AppenderRef ref="adminConsole"/>
+            <AppenderRef ref="adminFile"/>
+        </AsyncLogger>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Properties>
+        <Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
+        <Property name="LOG_LEVEL_PATTERN">%5p</Property>
+        <Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd'T'HH:mm:ss.SSSXXX</Property>
+        <Property name="CONSOLE_LOG_PATTERN">%clr CUSTOM_APP_LOG {%d{${sys:LOG_DATEFORMAT_PATTERN}}}{faint} %clr{${sys:LOG_LEVEL_PATTERN}} %clr{%pid}{magenta} %clr{--- %esb{${sys:APPLICATION_NAME:-}}%esb{${sys:APPLICATION_GROUP:-}}[%15.15t] ${sys:LOG_CORRELATION_PATTERN:-}}{faint}%clr{%-40.40c{1.}}{cyan} %clr{:}{faint} %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+        <Property name="FILE_LOG_PATTERN">CUSTOM_APP_LOG %d{${sys:LOG_DATEFORMAT_PATTERN}} ${sys:LOG_LEVEL_PATTERN} %pid --- %esb{${sys:APPLICATION_NAME:-}}%esb{${sys:APPLICATION_GROUP:-}}[%t] ${sys:LOG_CORRELATION_PATTERN:-}%-40.40c{1.} : %m%n${sys:LOG_EXCEPTION_CONVERSION_WORD}</Property>
+    </Properties>
+    <Appenders>
+        <Console name="customConsole" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${sys:CONSOLE_LOG_PATTERN}" charset="${sys:CONSOLE_LOG_CHARSET}"/>
+            <Filters>
+                <ThresholdFilter level="${sys:CONSOLE_LOG_THRESHOLD:-TRACE}"/>
+            </Filters>
+        </Console>
+
+        <RollingRandomAccessFile name="customFile"
+                                 filePattern="${env:LOG_HOME}/app-%date{yyyy-MM-dd}-%index.log">
+            <PatternLayout pattern="${sys:FILE_LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="10MB"/>
+                <TimeBasedTriggeringPolicy/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="customConsole"/>
+            <AppenderRef ref="customFile"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -1,0 +1,3 @@
+package reproducer.service
+
+class AdminLogService1IntegrationSpec extends AbstractAdminLogServiceIntegrationSpec {}

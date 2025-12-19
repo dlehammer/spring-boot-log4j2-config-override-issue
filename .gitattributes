@@ -1,0 +1,12 @@
+# Force Gradle wrapper scripts to have correct endings
+gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# Force all shell scripts to use LF
+*.sh text eol=lf
+
+# Force all batch scripts to use CRLF
+*.bat text eol=crlf
+
+# Default fallback
+* text=auto

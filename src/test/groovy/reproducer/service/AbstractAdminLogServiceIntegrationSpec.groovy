@@ -2,12 +2,14 @@ package reproducer.service
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import reproducer.logger.AdminLogger
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 @ActiveProfiles('integration-test')
+@DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 abstract class AbstractAdminLogServiceIntegrationSpec extends Specification {
 

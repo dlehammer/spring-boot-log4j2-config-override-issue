@@ -6,12 +6,14 @@ import org.springframework.beans.factory.NoSuchBeanDefinitionException
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.ApplicationContext
+import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
 import reproducer.service.AdminLogService
 import spock.lang.Specification
 import spock.util.concurrent.PollingConditions
 
 @ActiveProfiles('applog-only-test')
+@DirtiesContext
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class ApplicationLogOnlyFunctionalSpec extends Specification {
 

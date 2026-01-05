@@ -38,5 +38,7 @@ repositories {
 test {
     environment('LOG_HOME', "$workingDir/build/tmp/test-log_home")
 
+    systemProperty 'logging.log4j2.config.override', 'classpath:custom-admin-log/log4j2.xml'
+
     useJUnitPlatform()
 }
